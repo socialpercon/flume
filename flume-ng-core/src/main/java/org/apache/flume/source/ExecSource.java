@@ -22,6 +22,7 @@ package org.apache.flume.source;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -41,13 +42,13 @@ import org.apache.flume.channel.ChannelProcessor;
 import org.apache.flume.conf.Configurable;
 import org.apache.flume.event.EventBuilder;
 import org.apache.flume.instrumentation.SourceCounter;
+import org.joda.time.chrono.AssembledChronology.Fields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-
-import java.nio.charset.Charset;
 
 /**
  * <p>
@@ -331,7 +332,7 @@ Configurable {
           while ((line = reader.readLine()) != null) {
             synchronized (eventList) {
               sourceCounter.incrementEventReceivedCount();
-              eventList.add(EventBuilder.withBody(line.getBytes(charset)));
+              eventList.add(EventBuilder.withBody(null, ImmutableMap.of("message", line)));
               if(eventList.size() >= bufferCount || timeout()) {
                 flushEventBatch(eventList);
               }
