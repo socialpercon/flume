@@ -446,6 +446,9 @@ public class HDFSEventSink extends AbstractSink implements Configurable {
         throw new EventDeliveryException(th);
       }
     } finally {
+      if (sinkCounter.getEventDrainSuccessCount() >= 489494) {
+    	  Log
+      }
       transaction.close();
     }
   }

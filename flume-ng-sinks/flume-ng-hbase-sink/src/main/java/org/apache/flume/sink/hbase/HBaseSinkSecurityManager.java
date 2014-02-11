@@ -18,11 +18,13 @@
 package org.apache.flume.sink.hbase;
 
 import com.google.common.base.Preconditions;
+import com.mobigen.flume.sink.hdfs.KerberosUser;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+
 import org.apache.flume.FlumeException;
-import org.apache.flume.sink.hdfs.KerberosUser;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.security.User;
 import org.apache.hadoop.security.SecurityUtil;

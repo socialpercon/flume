@@ -344,7 +344,7 @@ public abstract class AbstractRpcSink extends AbstractSink
     }
 
     try {
-      transaction.begin();
+      //transaction.begin();
 
       verifyConnection();
 
@@ -376,11 +376,11 @@ public abstract class AbstractRpcSink extends AbstractSink
         client.appendBatch(batch);
       }
 
-      transaction.commit();
+      //transaction.commit();
       sinkCounter.addToEventDrainSuccessCount(size);
 
     } catch (Throwable t) {
-      transaction.rollback();
+      //transaction.rollback();
       if (t instanceof Error) {
         throw (Error) t;
       } else if (t instanceof ChannelException) {
@@ -392,7 +392,7 @@ public abstract class AbstractRpcSink extends AbstractSink
         throw new EventDeliveryException("Failed to send events", t);
       }
     } finally {
-      transaction.close();
+      //transaction.close();
     }
 
     return status;
